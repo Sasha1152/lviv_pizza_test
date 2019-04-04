@@ -1,7 +1,7 @@
 from behave import when, then
 from selenium.webdriver.common.keys import Keys
 
-from tools.common_tools import click_on_link, element_is_clickable
+from tools.common_tools import click_on_link, element_is_clickable, element_exist
 
 
 @when('I have opened google starting page')
@@ -28,10 +28,14 @@ def step(context):
 def step(context):
     click_on_link(context, 'link_text', 'Піца')
 
-@then("I select all available kind of pizzazz")
+
+@then("I click 'next' button until find the 'Pepperoni' pizza")
 def step(context):
-    click_on_link(context, 'link_text', 'Всі')
-    assert "замовлення" in context.browser.page_source
+    while not element_exist(context, 'link_text', 'Pepperoni'):
+        if element_is_clickable(context, 'link_text', 'Наступна'):
+            click_on_link(context, 'link_text', 'Наступна')
+        else:
+            break
 
 
 @then("I click on the 'Pepperoni' pizza")

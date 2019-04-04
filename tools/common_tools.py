@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
 
 locators = {
         "id": By.ID,
@@ -22,8 +23,19 @@ def element_is_clickable(context, locator, text):
         return True
     except TypeError:
         print("the element wasn't clickable")
+        return False
 
 
 def click_on_link(context, locator, text):
-    element = context.browser.find_element(locators[locator], text)
-    element.click()
+    try:
+        context.browser.find_element(locators[locator], text).click()
+    except NoSuchElementException:
+        return False
+    return True
+
+def element_exist(context, locator, text):
+    try:
+        context.browser.find_element(locators[locator], text).is_displayed()
+    except NoSuchElementException:
+        return False
+    return True
