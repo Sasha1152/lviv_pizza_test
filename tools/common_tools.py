@@ -1,41 +1,9 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import NoSuchElementException
-
-locators = {
-        "id": By.ID,
-        "xpath": By.XPATH,
-        "link_text": By.LINK_TEXT,
-        "partial_link_text": By.PARTIAL_LINK_TEXT,
-        "name": By.NAME,
-        "tag_name": By.TAG_NAME,
-        "class_name": By.CLASS_NAME,
-        "css_selector": By.CSS_SELECTOR
-    }
+from selenium.webdriver.common.keys import Keys
 
 
-def element_is_clickable(context, locator, text):
-    try:
-        WebDriverWait(context.browser, 10).until(
-            EC.element_to_be_clickable((locators[locator](text)))
-        )
-        return True
-    except TypeError:
-        print("the element wasn't clickable")
-        return False
+def type_in_textfield(context, text_to_type):
+	element = context.browser.find_element_by_name(context.googlepage.search_field_name)
+	element.click()
+	element.send_keys(text_to_type)
+	element.send_keys(Keys.RETURN)
 
-
-def click_on_link(context, locator, text):
-    try:
-        context.browser.find_element(locators[locator], text).click()
-    except NoSuchElementException:
-        return False
-    return True
-
-def element_exist(context, locator, text):
-    try:
-        context.browser.find_element(locators[locator], text).is_displayed()
-    except NoSuchElementException:
-        return False
-    return True

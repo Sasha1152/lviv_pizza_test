@@ -1,32 +1,31 @@
 from behave import when, then
 from selenium.webdriver.common.keys import Keys
 
-from tools.common_tools import click_on_link, element_is_clickable, element_exist
-
+from tools.locator_tools import click_on_link, element_is_clickable, element_exist
+from tools.common_tools import type_in_textfield
 
 @when('I have opened google starting page')
 def step(context):
-    context.browser.get(context.google_page.start_page_url)
-    assert context.browser.title == "Google"
+    context.googlepage.goto_start_page(context)
+    assert context.googlepage.get_title(context) == "Google"
+
 
 @then('I have written text to the textbox')
 def step(context):
-    element = context.browser.find_element_by_name(context.google_page.search_field_name)
-    element.click()
-    element.send_keys(context.google_page.text_to_search)
-    element.send_keys(Keys.RETURN)
+    type_in_textfield(context, context.googlepage.text_to_search)
 
 
 @then("I click on the 'pizzalviv.com' link")
 def step(context):
     element = context.browser.find_element_by_partial_link_text("pizzalviv.com")
     element.click()
-    assert context.browser.title == context.pizzalviv_page.start_page_pizza_title
+    assert context.pizzalvivpage.get_title(context) == "Доставка піци Львів"
 
 
 @then("I click on the 'Піца' button")
 def step(context):
     click_on_link(context, 'link_text', 'Піца')
+    assert context.pizzalvivpage.get_title(context) == "Піца | Доставка піци Львів"
 
 
 @then("I click 'next' button until find the 'Pepperoni' pizza")
@@ -42,6 +41,7 @@ def step(context):
 def step(context):
     if element_is_clickable(context, 'link_text', 'Pepperoni'):
         click_on_link(context, 'link_text', 'Pepperoni')
+
 
 @then("I click on the 'add to the basket' button")
 def step(context):
