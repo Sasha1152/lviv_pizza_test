@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
-from page_objects.instance_creater import create_instances_of_pages
+from page_objects.general_page import GeneralPage
 from page_objects.pizzalviv_page import PizzaLvivPage
 from tools.locator_tools import click_on_link
 
@@ -10,7 +10,7 @@ def before_all(context):
 	context.browser = webdriver.Chrome()
 	context.browser.set_page_load_timeout(10)
 	context.browser.implicitly_wait(10)
-	create_instances_of_pages(context, context.browser)
+	context.classes = GeneralPage.create_instanses_for_all(context)
 	# context.google_page = GooglePage(context.browser)
 	# context.pizzalviv_page = PizzaLvivPage(context.browser)
 	# context.browser.maximize_window()

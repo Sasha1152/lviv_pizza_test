@@ -1,31 +1,30 @@
 from behave import when, then
-from selenium.webdriver.common.keys import Keys
 
 from tools.locator_tools import click_on_link, element_is_clickable, element_exist
 from tools.common_tools import type_in_textfield
 
 @when('I have opened google starting page')
 def step(context):
-    context.googlepage.goto_start_page(context)
-    assert context.googlepage.get_title(context) == "Google"
+    context.classes['googlepage'].goto_start_page(context)
+    assert context.classes['googlepage'].get_title(context) == "Google"
 
 
 @then('I have written text to the textbox')
 def step(context):
-    type_in_textfield(context, context.googlepage.text_to_search)
+    type_in_textfield(context, context.classes['googlepage'].text_to_search)
 
 
 @then("I click on the 'pizzalviv.com' link")
 def step(context):
     element = context.browser.find_element_by_partial_link_text("pizzalviv.com")
     element.click()
-    assert context.pizzalvivpage.get_title(context) == "Доставка піци Львів"
+    assert context.classes['pizzalvivpage'].get_title(context) == "Доставка піци Львів"
 
 
 @then("I click on the 'Піца' button")
 def step(context):
     click_on_link(context, 'link_text', 'Піца')
-    assert context.pizzalvivpage.get_title(context) == "Піца | Доставка піци Львів"
+    assert context.classes['pizzalvivpage'].get_title(context) == "Піца | Доставка піци Львів"
 
 
 @then("I click 'next' button until find the 'Pepperoni' pizza")
