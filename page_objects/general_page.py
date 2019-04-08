@@ -22,3 +22,6 @@ class GooglePage(GeneralPage):
 
     def goto_start_page(self, context):
         return context.browser.get('http://www.google.com')
+
+class PizzaLvivPage(GeneralPage):
+    start_page_pizza_title = 'Доставка піци Львів'
