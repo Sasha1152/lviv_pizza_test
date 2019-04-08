@@ -24,14 +24,16 @@ print(classes['c'].var2)
 # print(globals()[A.__name__])
 
 # print(getattr(A, '__name__'))
-classname = str(A.__name__.lower())
-print(classname)
-instance = A(2)
-x= globals()[classname]
-a = x(2)
-# exec(f'{classname} = {instance}')
+
+# classname = str(A.__name__.lower())
 # print(classname)
-print(a)
+# instance = A(2)
+# x= globals()[classname]
+# a = x(2)
+# exec(f'{classname} = {instance}')
+
+# print(classname)
+print(issubclass(B, A))
 
 # print(a.var1)
 # print(a.var2)
