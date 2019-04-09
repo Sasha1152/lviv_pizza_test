@@ -5,26 +5,26 @@ from tools.common_tools import type_in_textfield
 
 @when('I have opened google starting page')
 def step(context):
-    pages['google_page'].goto_start_page(context)
-    assert context.pages['google_page'].get_title(context) == "Google"
+    context.google_page.goto_start_page(context)
+    assert context.google_page.get_title(context) == "Google"
 
 
 @then('I have written text to the textbox')
 def step(context):
-    type_in_textfield(context, context.classes['googlepage'].text_to_search)
+    type_in_textfield(context, context.google_page.text_to_search)
 
 
 @then("I click on the 'pizzalviv.com' link")
 def step(context):
     element = context.browser.find_element_by_partial_link_text("pizzalviv.com")
     element.click()
-    assert context.classes['pizzalvivpage'].get_title(context) == "Доставка піци Львів"
+    assert context.pizzalviv_page.get_title(context) == "Доставка піци Львів"
 
 
 @then("I click on the 'Піца' button")
 def step(context):
     click_on_link(context, 'link_text', 'Піца')
-    assert context.classes['pizzalvivpage'].get_title(context) == "Піца | Доставка піци Львів"
+    assert context.pizzalviv_page.get_title(context) == "Піца | Доставка піци Львів"
 
 
 @then("I click 'next' button until find the 'Pepperoni' pizza")
