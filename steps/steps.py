@@ -5,8 +5,8 @@ from tools.common_tools import type_in_textfield
 
 @when('I have opened google starting page')
 def step(context):
-    context.classes['googlepage'].goto_start_page(context)
-    assert context.classes['googlepage'].get_title(context) == "Google"
+    pages['google_page'].goto_start_page(context)
+    assert context.pages['google_page'].get_title(context) == "Google"
 
 
 @then('I have written text to the textbox')
