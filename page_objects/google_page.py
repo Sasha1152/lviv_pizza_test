@@ -7,3 +7,7 @@ class GooglePage(GeneralPage):
 
     def goto_start_page(self, context):
         return context.browser.get('http://www.google.com')
+
+
+def func1():
+    print("it's google module")
